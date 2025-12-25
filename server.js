@@ -108,6 +108,35 @@ app.post("/users/tickets/buy", async (req, res) => {
   }
 });
 
+app.get("/users/:username/summary", async (req, res) => {
+  try {
+    const users = await readUsers(users_PATH);
+    const name = req.params.username;
+    const receipts = await readReceipts(receipts_PATH);
+    const foundUsernameReceipt = receipts.filter((r) => r.username === name);
+    if (!foundUsernameReceipt || foundUsernameReceipt.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "User name in receipts dosent exsits." });
+    }
+    let sum = 0
+    let eventArr = [];
+    for (let i = 0; i < foundUsernameReceipt.length; i++) {
+      const nameevent = foundUsernameReceipt[i].eventName;
+      sum += foundUsernameReceipt[i].ticketsBought;
+      eventArr.push(nameevent);
+      
+    }
+    const avg = sum / eventArr.length;
+    const data = {
+      totalTicketsBought: sum,
+      events: eventArr,
+      averageTicketsPerEvent: avg,
+    };
+    return res.status(200).json({ message: "User receipt found", data: data });
+  } catch (error) {}
+});
+
 app.listen(PORT, () => {
   console.log(`server runing on port:${PORT}...`);
 });
