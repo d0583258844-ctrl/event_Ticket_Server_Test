@@ -1,1 +1,7 @@
-[]
+[
+  {
+    "username": "john_doe",
+    "eventName": "show",
+    "ticketsBought": 5
+  }
+]
