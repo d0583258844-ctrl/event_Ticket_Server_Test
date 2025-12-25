@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "eventName": "post malon show",
+    "ticketsAvailable": 45,
+    "createdBy": "john_doe"
+  },
+  {
+    "eventName": "post  show",
+    "ticketsAvailable": 45,
+    "createdBy": "john_doe"
+  },
+  {
+    "eventName": "show",
+    "ticketsAvailable": 45,
+    "createdBy": "john_doe"
+  }
+]
