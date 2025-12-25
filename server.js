@@ -119,13 +119,12 @@ app.get("/users/:username/summary", async (req, res) => {
         .status(404)
         .json({ message: "User name in receipts dosent exsits." });
     }
-    let sum = 0
+    let sum = 0;
     let eventArr = [];
     for (let i = 0; i < foundUsernameReceipt.length; i++) {
       const nameevent = foundUsernameReceipt[i].eventName;
       sum += foundUsernameReceipt[i].ticketsBought;
       eventArr.push(nameevent);
-      
     }
     const avg = sum / eventArr.length;
     const data = {
@@ -134,7 +133,9 @@ app.get("/users/:username/summary", async (req, res) => {
       averageTicketsPerEvent: avg,
     };
     return res.status(200).json({ message: "User receipt found", data: data });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
 });
 
 app.listen(PORT, () => {
